@@ -69,7 +69,7 @@ namespace esphome
             this->connect_callback_.add(std::move(callback));
         }
 
-        void XBOXController::add_x_axis_change_callback(std::function<void()> &&callback)
+        void XBOXController::add_x_axis_change_callback(std::function<void(float)> &&callback)
         {
             this->x_axis_change_callback_.add(std::move(callback));
         }
