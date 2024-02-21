@@ -44,7 +44,19 @@ async def to_code(config):
     cg.add_library(
         None,
         None,
+        "https://github.com/asukiaaa/arduino-XboxControllerNotificationParser.git",
+    )
+
+    cg.add_library(
+        None,
+        None,
         "https://github.com/h2zero/NimBLE-Arduino.git",
+    )
+
+    cg.add_library(
+        None,
+        None,
+        "https://github.com/asukiaaa/arduino-XboxSeriesXHIDReportBuilder.git",
     )
 
     cg.add_library(
