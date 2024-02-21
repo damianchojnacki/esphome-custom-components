@@ -56,7 +56,7 @@ namespace esphome
             public:
                 explicit XBOXControllerXAxisChangeTrigger(XBOXController *parent)
                 {
-                    parent->add_x_axis_change_callback([this](const float &value)
+                    parent->add_x_axis_change_callback([this](float &value)
                                                 { this->trigger(value); });
                 }
         };
