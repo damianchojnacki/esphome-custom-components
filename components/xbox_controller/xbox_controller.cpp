@@ -82,7 +82,7 @@ namespace esphome
             }
 
             this->state[index] = value;
-            this->callback.call(value);
+            callback.call(value);
             ESP_LOGD(TAG, "%s changed value to: %0.2f", name, value);
         }
 
