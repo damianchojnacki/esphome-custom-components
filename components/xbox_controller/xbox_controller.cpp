@@ -1,4 +1,4 @@
-#ifdef USE_ESP32
+//#ifdef USE_ESP32
 
 #include "xbox_controller.h"
 #include "esphome/core/log.h"
@@ -39,13 +39,14 @@ namespace esphome
 
                     uint16_t joystickMax = XboxControllerNotificationParser::maxJoy;
 
-                    this->setState("X Axis", 0, this->lx_axis_change_callback_, (float) xboxController.xboxNotif.joyLHori / joystickMax);
-                    //   Serial.print("joyLVert rate: ");
-                    //   Serial.println((float)xboxController.xboxNotif.joyLVert / joystickMax);
-                    //   Serial.print("trigLT rate: ");
-                    //   Serial.println(xboxController.xboxNotif.trigLT);
-                    //   Serial.print("trigRT rate: ");
-                    //   Serial.println(xboxController.xboxNotif.trigRT);
+                    this->setState("LX Axis", 0, this->lx_axis_change_callback_, (float) xboxController.xboxNotif.joyLHori / joystickMax);
+                    this->setState("LY Axis", 1, this->ly_axis_change_callback_, (float) xboxController.xboxNotif.joyLVert / joystickMax);
+
+                    this->setState("RX Axis", 2, this->rx_axis_change_callback_, (float) xboxController.xboxNotif.joyRHori / joystickMax);
+                    this->setState("RY Axis", 3, this->ry_axis_change_callback_, (float) xboxController.xboxNotif.joyRVert / joystickMax);
+
+                    this->setState("L Trigger", 4, this->l_trigger_change_callback_, xboxController.xboxNotif.trigLT);
+                    this->setState("R Trigger", 5, this->r_trigger_change_callback_, xboxController.xboxNotif.trigRT);
                 }
             }
             else
