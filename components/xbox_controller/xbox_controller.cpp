@@ -45,8 +45,8 @@ namespace esphome
                     this->setState("RX Axis", 2, this->rx_axis_change_callback_, (float) xboxController.xboxNotif.joyRHori / joystickMax);
                     this->setState("RY Axis", 3, this->ry_axis_change_callback_, (float) xboxController.xboxNotif.joyRVert / joystickMax);
 
-                    this->setState("L Trigger", 4, this->l_trigger_change_callback_, xboxController.xboxNotif.trigLT);
-                    this->setState("R Trigger", 5, this->r_trigger_change_callback_, xboxController.xboxNotif.trigRT);
+                    this->setState("L Trigger", 4, this->l_trigger_change_callback_, xboxController.xboxNotif.trigLT / 100);
+                    this->setState("R Trigger", 5, this->r_trigger_change_callback_, xboxController.xboxNotif.trigRT / 100);
                 }
             }
             else
