@@ -1,4 +1,4 @@
-//#ifdef USE_ESP32
+#ifdef USE_ESP32
 
 #include <XboxSeriesXControllerESP32_asukiaaa.hpp>
 #include "xbox_controller.h"

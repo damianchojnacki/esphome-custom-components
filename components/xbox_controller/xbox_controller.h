@@ -1,6 +1,6 @@
 #pragma once
 
-// #ifdef USE_ESP32
+#ifdef USE_ESP32
 
 #include "esphome/core/automation.h"
 #include "esphome/core/component.h"
