@@ -1,4 +1,4 @@
-#ifdef USE_ESP32
+//#ifdef USE_ESP32
 
 #include "xbox_controller.h"
 #include "esphome/core/log.h"
@@ -39,7 +39,7 @@ namespace esphome
 
                     uint16_t joystickMax = XboxControllerNotificationParser::maxJoy;
 
-                    this->setState("X Axis", 0, this->lx_axis_change_callback_, floorf(((float) xboxController.xboxNotif.joyLHori / joystickMax) * 100) / 100);
+                    this->setState("X Axis", 0, this->lx_axis_change_callback_, (float) xboxController.xboxNotif.joyLHori / joystickMax);
                     //   Serial.print("joyLVert rate: ");
                     //   Serial.println((float)xboxController.xboxNotif.joyLVert / joystickMax);
                     //   Serial.print("trigLT rate: ");
@@ -77,13 +77,15 @@ namespace esphome
 
         void XBOXController::setState(std::string name, int index, CallbackManager<void(float)> callback, float value)
         {
+            value = floorf((value * 100) / 100);
+
             if (this->state[index] == value) {
                 return;
             }
 
             this->state[index] = value;
             callback.call(value);
-            ESP_LOGD(TAG, "%s changed value to: %0.2f", name, value);
+            ESP_LOGD(TAG, "%s changed value to: %0.2f", name.c_str(), value);
         }
 
         XBOXController *global_xbox_controller; // NOLINT(cppcoreguidelines-avoid-non-const-global-variables)
