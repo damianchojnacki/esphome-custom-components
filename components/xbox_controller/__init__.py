@@ -17,7 +17,13 @@ XBOXControllerConnectTrigger = xbox_controller_ns.class_(
     automation.Trigger.template(),
 )
 
+XBOXControllerXAxisChangeTrigger = xbox_controller_ns.class_(
+    "XBOXControllerXAxisChangeTrigger",
+    automation.Trigger.template(),
+)
+
 CONF_ON_CONNECT = "on_connect"
+CONF_ON_X_AXIS_CHANGE = "on_x_axis_change"
 
 CONFIG_SCHEMA = cv.ENTITY_BASE_SCHEMA.extend(
     {
@@ -26,6 +32,13 @@ CONFIG_SCHEMA = cv.ENTITY_BASE_SCHEMA.extend(
             {
                 cv.GenerateID(CONF_TRIGGER_ID): cv.declare_id(
                     XBOXControllerConnectTrigger
+                ),
+            }
+        ),
+        cv.Optional(CONF_ON_X_AXIS_CHANGE): automation.validate_automation(
+            {
+                cv.GenerateID(CONF_TRIGGER_ID): cv.declare_id(
+                    XBOXControllerXAxisChangeTrigger
                 ),
             }
         ),
@@ -38,6 +51,10 @@ async def to_code(config):
     await cg.register_component(var, config)
 
     for conf in config.get(CONF_ON_CONNECT, []):
+        trigger = cg.new_Pvariable(conf[CONF_TRIGGER_ID], var)
+        await automation.build_automation(trigger, [], conf)
+    
+    for conf in config.get(CONF_ON_X_AXIS_CHANGE, []):
         trigger = cg.new_Pvariable(conf[CONF_TRIGGER_ID], var)
         await automation.build_automation(trigger, [], conf)
 

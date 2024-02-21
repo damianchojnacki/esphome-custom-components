@@ -26,12 +26,16 @@ namespace esphome
             void loop() override;
             /* public API (specific) */
             void setConnected();
+            void setXAxis(float value);
 
             void add_connect_callback(std::function<void()> &&callback);
+            void add_x_axis_change_callback(std::function<void()> &&callback);
 
         protected:
             bool connected = false;
+            float x_axis = 0.5;
             CallbackManager<void()> connect_callback_{};
+            CallbackManager<void(std::float)> x_axis_change_callback_{};
         };
 
         // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
@@ -43,6 +47,12 @@ namespace esphome
                 explicit XBOXControllerConnectTrigger(XBOXController *parent)
                 {
                     parent->add_connect_callback([this]()
+                                                { this->trigger(); });
+                }
+
+                explicit XBOXControllerXAxisChangeTrigger(XBOXController *parent)
+                {
+                    parent->add_x_axis_change_callback([this]()
                                                 { this->trigger(); });
                 }
         };

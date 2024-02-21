@@ -36,9 +36,10 @@ namespace esphome
                 else
                 {
                     this->setConnected();
-                    //   uint16_t joystickMax = XboxControllerNotificationParser::maxJoy;
-                    //   Serial.print("joyLHori rate: ");
-                    //   Serial.println((float)xboxController.xboxNotif.joyLHori / joystickMax);
+
+                    uint16_t joystickMax = XboxControllerNotificationParser::maxJoy;
+
+                    this->setXAxis((float) xboxController.xboxNotif.joyLHori / joystickMax);
                     //   Serial.print("joyLVert rate: ");
                     //   Serial.println((float)xboxController.xboxNotif.joyLVert / joystickMax);
                     //   Serial.print("trigLT rate: ");
@@ -51,7 +52,8 @@ namespace esphome
             {
                 if (xboxController.getCountFailedConnection() > 2)
                 {
-                    ESP.restart();
+                    //ESP.restart();
+                    ESP_LOGW(TAG, "Xbox Controller connection failed.");
                 }
             }
         }
@@ -67,6 +69,11 @@ namespace esphome
             this->connect_callback_.add(std::move(callback));
         }
 
+        void XBOXController::add_x_axis_change_callback(std::function<void()> &&callback)
+        {
+            this->x_axis_change_callback_.add(std::move(callback));
+        }
+
         void XBOXController::setConnected()
         {
             if (this->connected) {
@@ -75,6 +82,18 @@ namespace esphome
 
             this->connect_callback_.call();
             this->connected = true;
+            ESP_LOGI(TAG, "Xbox Controller connected!");
+        }
+
+        void XBOXController::setXAxis(float value)
+        {
+            if (this->x_axis == value) {
+                return;
+            }
+
+            this->x_axis = true;
+            this->x_axis_change_callback_.call(value);
+            ESP_LOGD(TAG, "X Axis changed value to: %0.2f", value);
         }
 
         XBOXController *global_xbox_controller; // NOLINT(cppcoreguidelines-avoid-non-const-global-variables)
