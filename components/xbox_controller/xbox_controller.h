@@ -1,6 +1,6 @@
 #pragma once
 
-//#ifdef USE_ESP32
+// #ifdef USE_ESP32
 
 #include "esphome/core/automation.h"
 #include "esphome/core/component.h"
@@ -16,19 +16,19 @@ namespace esphome
         /* ---------------- XBOXController class ---------------- */
         class XBOXController : public Component, public EntityBase
         {
-            public:
-                XBOXController();
+        public:
+            XBOXController();
 
-                /* public API (derivated) */
-                void setup() override;
-                void loop() override;
-                /* public API (specific) */
-                void setConnected();
+            /* public API (derivated) */
+            void setup() override;
+            void loop() override;
+            /* public API (specific) */
+            void setConnected();
 
-                void add_connect_callback(std::function<void()> &&callback);
+            void add_connect_callback(std::function<void()> &&callback);
 
-            protected:
-                bool connected = false;
+        protected:
+            bool connected = false;
         };
 
         // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
@@ -44,6 +44,7 @@ namespace esphome
             }
 
         protected:
+            CallbackManager<void()> connect_callback_{};
         };
 
     } // namespace xbox_controller
