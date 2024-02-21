@@ -77,7 +77,7 @@ namespace esphome
 
         void XBOXController::setState(std::string name, int index, CallbackManager<void(float)> callback, float value)
         {
-            value = floorf((value * 100) / 100);
+            value = floorf(value * 100) / 100;
 
             if (this->state[index] == value) {
                 return;
