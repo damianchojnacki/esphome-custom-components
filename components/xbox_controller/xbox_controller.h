@@ -35,7 +35,7 @@ namespace esphome
             bool connected = false;
             float x_axis = 0.5;
             CallbackManager<void()> connect_callback_{};
-            CallbackManager<void(std::float)> x_axis_change_callback_{};
+            CallbackManager<void(float)> x_axis_change_callback_{};
         };
 
         // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
@@ -49,7 +49,11 @@ namespace esphome
                     parent->add_connect_callback([this]()
                                                 { this->trigger(); });
                 }
+        };
 
+        class XBOXControllerXAxisChangeTrigger : public Trigger<>
+        {
+            public:
                 explicit XBOXControllerXAxisChangeTrigger(XBOXController *parent)
                 {
                     parent->add_x_axis_change_callback([this]()
