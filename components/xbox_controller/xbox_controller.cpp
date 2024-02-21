@@ -86,7 +86,7 @@ namespace esphome
 
             this->state[index] = value;
             callback.call(value);
-            ESP_LOGD(TAG, "%s changed value to: %0.2f", name.c_str(), value);
+            ESP_LOGD(TAG, "%s changed value to: %d", name.c_str(), value * 100);
         }
 
         XBOXController *global_xbox_controller; // NOLINT(cppcoreguidelines-avoid-non-const-global-variables)
