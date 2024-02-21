@@ -29,7 +29,7 @@ namespace esphome
             void setXAxis(float value);
 
             void add_connect_callback(std::function<void()> &&callback);
-            void add_x_axis_change_callback(std::function<void()> &&callback);
+            void add_x_axis_change_callback(std::function<void(float)> &&callback);
 
         protected:
             bool connected = false;
