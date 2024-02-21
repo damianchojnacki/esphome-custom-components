@@ -17,13 +17,43 @@ XBOXControllerConnectTrigger = xbox_controller_ns.class_(
     automation.Trigger.template(),
 )
 
-XBOXControllerXAxisChangeTrigger = xbox_controller_ns.class_(
-    "XBOXControllerXAxisChangeTrigger",
+XBOXControllerLXAxisChangeTrigger = xbox_controller_ns.class_(
+    "XBOXControllerLXAxisChangeTrigger",
+    automation.Trigger.template(float),
+)
+
+XBOXControllerLYAxisChangeTrigger = xbox_controller_ns.class_(
+    "XBOXControllerLYAxisChangeTrigger",
+    automation.Trigger.template(float),
+)
+
+XBOXControllerRXAxisChangeTrigger = xbox_controller_ns.class_(
+    "XBOXControllerRXAxisChangeTrigger",
+    automation.Trigger.template(float),
+)
+
+XBOXControllerRYAxisChangeTrigger = xbox_controller_ns.class_(
+    "XBOXControllerRYAxisChangeTrigger",
+    automation.Trigger.template(float),
+)
+
+XBOXControllerLTriggerChangeTrigger = xbox_controller_ns.class_(
+    "XBOXControllerLTriggerChangeTrigger",
+    automation.Trigger.template(float),
+)
+
+XBOXControllerRTriggerChangeTrigger = xbox_controller_ns.class_(
+    "XBOXControllerRTriggerChangeTrigger",
     automation.Trigger.template(float),
 )
 
 CONF_ON_CONNECT = "on_connect"
-CONF_ON_X_AXIS_CHANGE = "on_x_axis_change"
+CONF_ON_LX_AXIS_CHANGE = "on_l_x_axis_change"
+CONF_ON_LY_AXIS_CHANGE = "on_l_y_axis_change"
+CONF_ON_RX_AXIS_CHANGE = "on_r_x_axis_change"
+CONF_ON_RY_AXIS_CHANGE = "on_r_y_axis_change"
+CONF_ON_L_TRIGGER_CHANGE = "on_l_trigger_change"
+CONF_ON_R_TRIGGER_CHANGE = "on_r_trigger_change"
 
 CONFIG_SCHEMA = cv.ENTITY_BASE_SCHEMA.extend(
     {
@@ -35,10 +65,45 @@ CONFIG_SCHEMA = cv.ENTITY_BASE_SCHEMA.extend(
                 ),
             }
         ),
-        cv.Optional(CONF_ON_X_AXIS_CHANGE): automation.validate_automation(
+        cv.Optional(CONF_ON_LX_AXIS_CHANGE): automation.validate_automation(
             {
                 cv.GenerateID(CONF_TRIGGER_ID): cv.declare_id(
-                    XBOXControllerXAxisChangeTrigger
+                    XBOXControllerLXAxisChangeTrigger
+                ),
+            }
+        ),
+        cv.Optional(CONF_ON_LY_AXIS_CHANGE): automation.validate_automation(
+            {
+                cv.GenerateID(CONF_TRIGGER_ID): cv.declare_id(
+                    XBOXControllerLYAxisChangeTrigger
+                ),
+            }
+        ),
+           cv.Optional(CONF_ON_RX_AXIS_CHANGE): automation.validate_automation(
+            {
+                cv.GenerateID(CONF_TRIGGER_ID): cv.declare_id(
+                    XBOXControllerRXAxisChangeTrigger
+                ),
+            }
+        ),
+        cv.Optional(CONF_ON_RY_AXIS_CHANGE): automation.validate_automation(
+            {
+                cv.GenerateID(CONF_TRIGGER_ID): cv.declare_id(
+                    XBOXControllerRYAxisChangeTrigger
+                ),
+            }
+        ),
+        cv.Optional(CONF_ON_L_TRIGGER_CHANGE): automation.validate_automation(
+            {
+                cv.GenerateID(CONF_TRIGGER_ID): cv.declare_id(
+                    XBOXControllerLTriggerChangeTrigger
+                ),
+            }
+        ),
+        cv.Optional(CONF_ON_R_TRIGGER_CHANGE): automation.validate_automation(
+            {
+                cv.GenerateID(CONF_TRIGGER_ID): cv.declare_id(
+                    XBOXControllerRTriggerChangeTrigger
                 ),
             }
         ),
@@ -54,9 +119,29 @@ async def to_code(config):
         trigger = cg.new_Pvariable(conf[CONF_TRIGGER_ID], var)
         await automation.build_automation(trigger, [], conf)
     
-    for conf in config.get(CONF_ON_X_AXIS_CHANGE, []):
+    for conf in config.get(CONF_ON_LX_AXIS_CHANGE, []):
         trigger = cg.new_Pvariable(conf[CONF_TRIGGER_ID], var)
-        await automation.build_automation(trigger, [(float, "value")], conf)
+        await automation.build_automation(trigger, [(float, "x")], conf)
+    
+    for conf in config.get(CONF_ON_LY_AXIS_CHANGE, []):
+        trigger = cg.new_Pvariable(conf[CONF_TRIGGER_ID], var)
+        await automation.build_automation(trigger, [(float, "x")], conf)
+
+    for conf in config.get(CONF_ON_RX_AXIS_CHANGE, []):
+        trigger = cg.new_Pvariable(conf[CONF_TRIGGER_ID], var)
+        await automation.build_automation(trigger, [(float, "x")], conf)
+    
+    for conf in config.get(CONF_ON_RY_AXIS_CHANGE, []):
+        trigger = cg.new_Pvariable(conf[CONF_TRIGGER_ID], var)
+        await automation.build_automation(trigger, [(float, "x")], conf)
+
+    for conf in config.get(CONF_ON_L_TRIGGER_CHANGE, []):
+        trigger = cg.new_Pvariable(conf[CONF_TRIGGER_ID], var)
+        await automation.build_automation(trigger, [(float, "x")], conf)
+
+    for conf in config.get(CONF_ON_R_TRIGGER_CHANGE, []):
+        trigger = cg.new_Pvariable(conf[CONF_TRIGGER_ID], var)
+        await automation.build_automation(trigger, [(float, "x")], conf)
 
     cg.add_library(
         None,

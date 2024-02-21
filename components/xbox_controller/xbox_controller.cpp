@@ -39,7 +39,7 @@ namespace esphome
 
                     uint16_t joystickMax = XboxControllerNotificationParser::maxJoy;
 
-                    this->setXAxis(floorf(((float) xboxController.xboxNotif.joyLHori / joystickMax) * 100) / 100);
+                    this->setState("X Axis", 0, this->lx_axis_change_callback_, floorf(((float) xboxController.xboxNotif.joyLHori / joystickMax) * 100) / 100);
                     //   Serial.print("joyLVert rate: ");
                     //   Serial.println((float)xboxController.xboxNotif.joyLVert / joystickMax);
                     //   Serial.print("trigLT rate: ");
@@ -52,8 +52,8 @@ namespace esphome
             {
                 if (xboxController.getCountFailedConnection() > 2)
                 {
-                    //ESP.restart();
-                    ESP_LOGW(TAG, "Xbox Controller connection failed.");
+                    ESP_LOGW(TAG, "Xbox Controller connection failed. Restarting...");
+                    ESP.restart();
                 }
             }
         }
@@ -75,15 +75,15 @@ namespace esphome
             ESP_LOGI(TAG, "Xbox Controller connected!");
         }
 
-        void XBOXController::setXAxis(float value)
+        void XBOXController::setState(std::string name, int index, std::function<void(float)> &&callback, float value)
         {
-            if (this->x_axis == value) {
+            if (this->state[index] == value) {
                 return;
             }
 
-            this->x_axis = value;
-            this->x_axis_change_callback_.call(value);
-            ESP_LOGD(TAG, "X Axis changed value to: %0.2f", value);
+            this->state[index] = value;
+            this->callback.call(value);
+            ESP_LOGD(TAG, "%s changed value to: %0.2f", name, value);
         }
 
         XBOXController *global_xbox_controller; // NOLINT(cppcoreguidelines-avoid-non-const-global-variables)

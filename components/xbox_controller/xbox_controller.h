@@ -26,21 +26,51 @@ namespace esphome
             void loop() override;
             /* public API (specific) */
             void setConnected();
-            void setXAxis(float value);
+            void setState(std::string name, int index, std::function<void(float)> &&callback, float value);
 
             void add_connect_callback(std::function<void()> &&callback) {
                 this->connect_callback_.add(std::move(callback));
             }
 
-            void add_x_axis_change_callback(std::function<void(float)> &&callback)
+            void add_lx_axis_change_callback(std::function<void(float)> &&callback)
             {
-                this->x_axis_change_callback_.add(std::move(callback));
+                this->lx_axis_change_callback_.add(std::move(callback));
+            }
+
+            void add_ly_axis_change_callback(std::function<void(float)> &&callback)
+            {
+                this->ly_axis_change_callback_.add(std::move(callback));
+            }
+
+            void add_rx_axis_change_callback(std::function<void(float)> &&callback)
+            {
+                this->rx_axis_change_callback_.add(std::move(callback));
+            }
+
+            void add_ry_axis_change_callback(std::function<void(float)> &&callback)
+            {
+                this->ry_axis_change_callback_.add(std::move(callback));
+            }
+
+            void add_l_trigger_change_callback(std::function<void(float)> &&callback)
+            {
+                this->l_trigger_change_callback_.add(std::move(callback));
+            }
+
+            void add_r_trigger_change_callback(std::function<void(float)> &&callback)
+            {
+                this->r_trigger_change_callback_.add(std::move(callback));
             }
         protected:
             bool connected = false;
-            float x_axis = 0.5;
+            float lx_axis = 0.5, ly_axis = 0.5, rx_axis = 0.5, ry_axis = 0.5, l_trigger = 0, r_trigger = 0;
             CallbackManager<void()> connect_callback_{};
-            CallbackManager<void(float)> x_axis_change_callback_{};
+            CallbackManager<void(float)> lx_axis_change_callback_{};
+            CallbackManager<void(float)> ly_axis_change_callback_{};
+            CallbackManager<void(float)> rx_axis_change_callback_{};
+            CallbackManager<void(float)> ry_axis_change_callback_{};
+            CallbackManager<void(float)> l_trigger_change_callback_{};
+            CallbackManager<void(float)> r_trigger_change_callback_{};
         };
 
         // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
@@ -56,13 +86,63 @@ namespace esphome
                 }
         };
 
-        class XBOXControllerXAxisChangeTrigger : public Trigger<float>
+        class XBOXControllerLXAxisChangeTrigger : public Trigger<float>
         {
             public:
-                explicit XBOXControllerXAxisChangeTrigger(XBOXController *parent)
+                explicit XBOXControllerLXAxisChangeTrigger(XBOXController *parent)
                 {
-                    parent->add_x_axis_change_callback([this](float value)
-                                                { this->trigger(value); });
+                    parent->add_lx_axis_change_callback([this](float x)
+                                                { this->trigger(x); });
+                }
+        };
+
+        class XBOXControllerLYAxisChangeTrigger : public Trigger<float>
+        {
+            public:
+                explicit XBOXControllerLYAxisChangeTrigger(XBOXController *parent)
+                {
+                    parent->add_ly_axis_change_callback([this](float x)
+                                                { this->trigger(x); });
+                }
+        };
+
+        class XBOXControllerRXAxisChangeTrigger : public Trigger<float>
+        {
+            public:
+                explicit XBOXControllerRXAxisChangeTrigger(XBOXController *parent)
+                {
+                    parent->add_rx_axis_change_callback([this](float x)
+                                                { this->trigger(x); });
+                }
+        };
+
+        class XBOXControllerRYAxisChangeTrigger : public Trigger<float>
+        {
+            public:
+                explicit XBOXControllerRYAxisChangeTrigger(XBOXController *parent)
+                {
+                    parent->add_ry_axis_change_callback([this](float x)
+                                                { this->trigger(x); });
+                }
+        };
+
+        class XBOXControllerLTriggerChangeTrigger : public Trigger<float>
+        {
+            public:
+                explicit XBOXControllerLTriggerChangeTrigger(XBOXController *parent)
+                {
+                    parent->add_l_trigger_change_callback([this](float x)
+                                                { this->trigger(x); });
+                }
+        };
+
+        class XBOXControllerRTriggerChangeTrigger : public Trigger<float>
+        {
+            public:
+                explicit XBOXControllerRTriggerChangeTrigger(XBOXController *parent)
+                {
+                    parent->add_r_trigger_change_callback([this](float x)
+                                                { this->trigger(x); });
                 }
         };
 
