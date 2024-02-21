@@ -63,7 +63,7 @@ namespace esphome
             }
         protected:
             bool connected = false;
-            float lx_axis = 0.5, ly_axis = 0.5, rx_axis = 0.5, ry_axis = 0.5, l_trigger = 0, r_trigger = 0;
+            float state[4];
             CallbackManager<void()> connect_callback_{};
             CallbackManager<void(float)> lx_axis_change_callback_{};
             CallbackManager<void(float)> ly_axis_change_callback_{};
