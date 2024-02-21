@@ -1,14 +1,12 @@
 #pragma once
 
-#ifdef USE_ESP32
+//#ifdef USE_ESP32
 
+#include "XboxSeriesXControllerESP32_asukiaaa/src/XboxSeriesXControllerESP32_asukiaaa.hpp"
 #include "esphome/core/automation.h"
 #include "esphome/core/component.h"
 #include "esphome/core/entity_base.h"
 #include "esphome/core/helpers.h"
-#include <esp_camera.h>
-#include <freertos/FreeRTOS.h>
-#include <freertos/queue.h>
 
 namespace esphome
 {

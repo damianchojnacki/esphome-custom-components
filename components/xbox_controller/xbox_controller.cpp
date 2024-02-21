@@ -1,10 +1,8 @@
-#ifdef USE_ESP32
+//#ifdef USE_ESP32
 
 #include "xbox_controller.h"
 #include "esphome/core/log.h"
 #include "esphome/core/hal.h"
-
-#include <freertos/task.h>
 
 namespace esphome
 {
