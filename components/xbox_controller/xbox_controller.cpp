@@ -1,6 +1,5 @@
 #ifdef USE_ESP32
 
-#include "XboxSeriesXControllerESP32_asukiaaa/src/XboxSeriesXControllerESP32_asukiaaa.hpp"
 #include "xbox_controller.h"
 #include "esphome/core/log.h"
 #include "esphome/core/hal.h"

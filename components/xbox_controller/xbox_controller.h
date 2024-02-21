@@ -7,6 +7,8 @@
 #include "esphome/core/entity_base.h"
 #include "esphome/core/helpers.h"
 
+#include "./XboxSeriesXControllerESP32_asukiaaa/src/XboxSeriesXControllerESP32_asukiaaa.hpp"
+
 namespace esphome
 {
     namespace xbox_controller
