@@ -1,4 +1,4 @@
-//#ifdef USE_ESP32
+#ifdef USE_ESP32
 
 #include "xbox_controller.h"
 #include "esphome/core/log.h"
