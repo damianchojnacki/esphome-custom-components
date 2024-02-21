@@ -39,7 +39,7 @@ namespace esphome
 
                     uint16_t joystickMax = XboxControllerNotificationParser::maxJoy;
 
-                    this->setXAxis((float) xboxController.xboxNotif.joyLHori / joystickMax);
+                    this->setXAxis(floorf(((float) xboxController.xboxNotif.joyLHori / joystickMax) * 100) / 100);
                     //   Serial.print("joyLVert rate: ");
                     //   Serial.println((float)xboxController.xboxNotif.joyLVert / joystickMax);
                     //   Serial.print("trigLT rate: ");
@@ -83,7 +83,7 @@ namespace esphome
 
             this->x_axis = value;
             this->x_axis_change_callback_.call(value);
-            ESP_LOGD(TAG, "X Axis changed value to: %0.3f", value);
+            ESP_LOGD(TAG, "X Axis changed value to: %0.2f", value);
         }
 
         XBOXController *global_xbox_controller; // NOLINT(cppcoreguidelines-avoid-non-const-global-variables)
