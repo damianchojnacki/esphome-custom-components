@@ -83,7 +83,7 @@ namespace esphome
 
             this->x_axis = value;
             this->x_axis_change_callback_.call(value);
-            ESP_LOGD(TAG, "X Axis changed value to: %0.2f", value);
+            ESP_LOGD(TAG, "X Axis changed value to: %0.3f", value);
         }
 
         XBOXController *global_xbox_controller; // NOLINT(cppcoreguidelines-avoid-non-const-global-variables)
