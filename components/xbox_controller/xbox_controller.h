@@ -29,6 +29,7 @@ namespace esphome
 
         protected:
             bool connected = false;
+            CallbackManager<void()> connect_callback_{};
         };
 
         // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
@@ -36,15 +37,12 @@ namespace esphome
 
         class XBOXControllerConnectTrigger : public Trigger<>
         {
-        public:
-            explicit XBOXControllerConnectTrigger(XBOXController *parent)
-            {
-                parent->add_connect_callback([this]()
-                                             { this->trigger(); });
-            }
-
-        protected:
-            CallbackManager<void()> connect_callback_{};
+            public:
+                explicit XBOXControllerConnectTrigger(XBOXController *parent)
+                {
+                    parent->add_connect_callback([this]()
+                                                { this->trigger(); });
+                }
         };
 
     } // namespace xbox_controller
