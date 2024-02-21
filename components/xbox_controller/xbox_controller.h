@@ -2,7 +2,6 @@
 
 //#ifdef USE_ESP32
 
-#include "XboxSeriesXControllerESP32_asukiaaa/src/XboxSeriesXControllerESP32_asukiaaa.hpp"
 #include "esphome/core/automation.h"
 #include "esphome/core/component.h"
 #include "esphome/core/entity_base.h"
