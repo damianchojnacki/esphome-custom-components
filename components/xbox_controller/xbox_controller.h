@@ -28,9 +28,14 @@ namespace esphome
             void setConnected();
             void setXAxis(float value);
 
-            void add_connect_callback(std::function<void()> &&callback);
-            void add_x_axis_change_callback(std::function<void(float)> &&callback);
+            void add_connect_callback(std::function<void()> &&callback) {
+                this->connect_callback_.add(std::move(callback));
+            }
 
+            void add_x_axis_change_callback(std::function<void(float)> &&callback)
+            {
+                this->x_axis_change_callback_.add(std::move(callback));
+            }
         protected:
             bool connected = false;
             float x_axis = 0.5;

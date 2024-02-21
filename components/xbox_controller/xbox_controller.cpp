@@ -64,16 +64,6 @@ namespace esphome
             global_xbox_controller = this;
         }
 
-        void XBOXController::add_connect_callback(std::function<void()> &&callback)
-        {
-            this->connect_callback_.add(std::move(callback));
-        }
-
-        void XBOXController::add_x_axis_change_callback(std::function<void(float)> &&callback)
-        {
-            this->x_axis_change_callback_.add(std::move(callback));
-        }
-
         void XBOXController::setConnected()
         {
             if (this->connected) {
@@ -91,7 +81,7 @@ namespace esphome
                 return;
             }
 
-            this->x_axis = true;
+            this->x_axis = value;
             this->x_axis_change_callback_.call(value);
             ESP_LOGD(TAG, "X Axis changed value to: %0.2f", value);
         }
