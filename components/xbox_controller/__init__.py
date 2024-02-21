@@ -19,7 +19,7 @@ XBOXControllerConnectTrigger = xbox_controller_ns.class_(
 
 XBOXControllerXAxisChangeTrigger = xbox_controller_ns.class_(
     "XBOXControllerXAxisChangeTrigger",
-    automation.Trigger.template(cg.float_),
+    automation.Trigger.template(float),
 )
 
 CONF_ON_CONNECT = "on_connect"
@@ -56,7 +56,7 @@ async def to_code(config):
     
     for conf in config.get(CONF_ON_X_AXIS_CHANGE, []):
         trigger = cg.new_Pvariable(conf[CONF_TRIGGER_ID], var)
-        await automation.build_automation(trigger, [(cg.float_, "value")], conf)
+        await automation.build_automation(trigger, [(float, "value")], conf)
 
     cg.add_library(
         None,
