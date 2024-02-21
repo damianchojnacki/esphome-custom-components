@@ -26,7 +26,7 @@ namespace esphome
             void loop() override;
             /* public API (specific) */
             void setConnected();
-            void setState(std::string name, int index, std::function<void(float)> &&callback, float value);
+            void setState(std::string name, int index, CallbackManager<void(float)> callback, float value);
 
             void add_connect_callback(std::function<void()> &&callback) {
                 this->connect_callback_.add(std::move(callback));

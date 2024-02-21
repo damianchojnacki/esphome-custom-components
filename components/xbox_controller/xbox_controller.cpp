@@ -39,7 +39,7 @@ namespace esphome
 
                     uint16_t joystickMax = XboxControllerNotificationParser::maxJoy;
 
-                    this->setState("X Axis", 0, this->lx_axis_change_callback_.call, floorf(((float) xboxController.xboxNotif.joyLHori / joystickMax) * 100) / 100);
+                    this->setState("X Axis", 0, this->lx_axis_change_callback_, floorf(((float) xboxController.xboxNotif.joyLHori / joystickMax) * 100) / 100);
                     //   Serial.print("joyLVert rate: ");
                     //   Serial.println((float)xboxController.xboxNotif.joyLVert / joystickMax);
                     //   Serial.print("trigLT rate: ");
@@ -75,14 +75,14 @@ namespace esphome
             ESP_LOGI(TAG, "Xbox Controller connected!");
         }
 
-        void XBOXController::setState(std::string name, int index, std::function<void(float)> &&callback, float value)
+        void XBOXController::setState(std::string name, int index, CallbackManager<void(float)> callback, float value)
         {
             if (this->state[index] == value) {
                 return;
             }
 
             this->state[index] = value;
-            callback(value);
+            callback.call(value);
             ESP_LOGD(TAG, "%s changed value to: %0.2f", name, value);
         }
 
