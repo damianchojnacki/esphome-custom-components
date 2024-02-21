@@ -56,7 +56,7 @@ namespace esphome
                 }
         };
 
-        class XBOXControllerXAxisChangeTrigger : public Trigger<>
+        class XBOXControllerXAxisChangeTrigger : public Trigger<float>
         {
             public:
                 explicit XBOXControllerXAxisChangeTrigger(XBOXController *parent)
