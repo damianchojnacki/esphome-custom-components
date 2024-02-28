@@ -56,7 +56,10 @@ namespace esphome
                 if (xboxController.getCountFailedConnection() > 2)
                 {
                     ESP_LOGW(TAG, "Xbox Controller connection failed. Restarting...");
-                    ESP.restart();
+
+                    delay(100);  // NOLINT
+                    
+                    App.safe_reboot();
                 }
             }
         }
