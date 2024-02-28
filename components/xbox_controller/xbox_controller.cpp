@@ -3,6 +3,7 @@
 #include "xbox_controller.h"
 #include "esphome/core/log.h"
 #include "esphome/core/hal.h"
+#include "esphome/core/application.h"
 
 namespace esphome
 {
@@ -58,7 +59,7 @@ namespace esphome
                     ESP_LOGW(TAG, "Xbox Controller connection failed. Restarting...");
 
                     delay(100);  // NOLINT
-                    
+
                     App.safe_reboot();
                 }
             }
